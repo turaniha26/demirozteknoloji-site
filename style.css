@@ -124,6 +124,8 @@ label{display:grid;gap:6px;color:var(--mu);font:500 .74rem var(--mo);letter-spac
 input,textarea{font:400 1rem var(--hd);letter-spacing:0;text-transform:none;color:var(--tx);background:var(--bk);border:1px solid var(--ln);padding:12px 14px;width:100%;transition:border-color .2s,box-shadow .2s}
 input:focus,textarea:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(47,123,255,.25)}
 textarea{resize:vertical}form .btn{justify-self:start}
+.btn:disabled{opacity:.6;cursor:wait}
+.fstat{font:500 .8rem/1.5 var(--mo);color:var(--bl2)}.fstat:empty{display:none}.fstat.err{color:#ff7a7a}
 
 footer{padding:30px 24px 24px;text-align:center;color:var(--mu);font-size:.9rem;background:var(--bk);border-top:1px solid var(--ln)}
 .status{margin-top:12px;color:var(--bl2);font-size:.68rem}

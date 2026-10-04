@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 <div id="bar"></div><div id="glow"></div>
@@ -144,11 +144,16 @@
       <p class="lead rv">Proje önerisi, sponsorluk veya takıma katılım için yazın.</p>
       <p class="rv"><a class="mail" href="mailto:info@demirozteknoloji.tr">info@demirozteknoloji.tr</a></p>
     </div>
-    <form id="form" class="rv">
-      <label>Adınız soyadınız<input name="ad" required autocomplete="name"></label>
-      <label>E-posta adresiniz<input name="mail" type="email" required autocomplete="email"></label>
-      <label>Mesajınız<textarea name="mesaj" rows="4" required></textarea></label>
+    <form id="form" class="rv" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="f339f4db-8f8a-499e-a460-3ecf915918af">
+      <input type="hidden" name="subject" value="Demiröz Teknoloji web sitesinden yeni mesaj">
+      <input type="hidden" name="from_name" value="Demiröz Teknoloji Web Sitesi">
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+      <label>Adınız soyadınız<input name="name" required autocomplete="name"></label>
+      <label>E-posta adresiniz<input name="email" type="email" required autocomplete="email"></label>
+      <label>Mesajınız<textarea name="message" rows="4" required></textarea></label>
       <button class="btn primary mag" type="submit">Mesajı gönder</button>
+      <p class="fstat" id="fs" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -203,9 +208,20 @@ $$('.btn').forEach(b=>{
   b.addEventListener('pointerleave',()=>b.style.transform='');
 });
 
-/* form */
-$('#form').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);
-  location.href=`mailto:info@demirozteknoloji.tr?subject=${encodeURIComponent('Web sitesi mesajı')}&body=${encodeURIComponent(f.get('mesaj')+'\n\n'+f.get('ad')+' ('+f.get('mail')+')')}`};
+/* form (Web3Forms) */
+const form=$('#form'),fs=$('#fs'),fb=form.querySelector('button[type=submit]');
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const old=fb.textContent;fs.className='fstat';fs.textContent='';fb.disabled=true;fb.textContent='Gönderiliyor…';
+  try{
+    const r=await fetch(form.action,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form)))});
+    const d=await r.json();
+    if(!r.ok||!d.success)throw new Error(d.message||'hata');
+    form.reset();fs.classList.add('ok');fs.textContent='Mesajınız gönderildi. En kısa sürede size dönüş yapacağız.';
+  }catch(err){
+    fs.classList.add('err');fs.textContent='Mesaj gönderilemedi. Lütfen tekrar deneyin veya info@demirozteknoloji.tr adresine yazın.';
+  }finally{fb.disabled=false;fb.textContent=old}
+});
 
 /* telemetri */
 if(!rm){let t=0;setInterval(()=>{t+=.15;$('#alt').textContent=Math.round(120+18*Math.sin(t))},200)}
