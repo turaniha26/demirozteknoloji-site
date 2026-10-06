@@ -11,18 +11,19 @@
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 <a class="skip" href="#takimlar">İçeriğe geç</a>
-<div id="bar"></div>
+<div id="bar"></div><div id="glow"></div>
 
 <header class="nav" id="nav">
   <a class="brand" href="#home"><img src="favicon.png" alt="" width="30" height="30">Demiröz Teknoloji</a>
   <nav id="menu" aria-label="Ana menü">
     <a href="#home">Ana sayfa</a><a href="#vizyon">Vizyon</a><a href="#takimlar">Takımlar</a><a class="hl" href="#guvenlik">Güvenlik birimi</a><a href="#iletisim">İletişim</a>
   </nav>
+  <span class="clock mono" id="clock">--:--:-- TSİ</span>
   <button class="burger" id="burger" aria-label="Menü" aria-expanded="false"><span></span><span></span></button>
 </header>
 
@@ -55,9 +56,10 @@
       </g>
     </svg>
   </div>
+  <canvas id="net" aria-hidden="true"></canvas>
   <div class="shade"></div>
   <div class="hero-in">
-    <p class="kicker">Hacı Şöhret Demiröz Fen Lisesi teknoloji takımları</p>
+    <p class="kicker mono">Hacı Şöhret Demiröz Fen Lisesi teknoloji takımları</p>
     <h1><span class="ln"><span>Havadan,</span></span><span class="ln"><span>tarladan,</span></span><span class="ln"><span><em>sahadan.</em></span></span></h1>
     <p class="sub">İHA, robot ve akıllı tarım: tasarlıyor, kodluyor ve sahada deniyoruz.</p>
     <div class="btns"><a class="btn primary" href="#takimlar">Takımları keşfet</a><a class="btn" href="#iletisim">Bize ulaş</a></div>
@@ -67,25 +69,28 @@
     <div><dt>Bilim dalı</dt><dd><b data-n="6">0</b></dd></div>
     <div><dt>Güvenlik birimi</dt><dd><b data-n="1">0</b></dd></div>
     <div><dt>Görev modu</dt><dd>Otonom</dd></div>
+    <div><dt>İrtifa</dt><dd><b id="alt">120</b> m</dd></div>
   </dl>
 </section>
 
 <section class="sec" id="vizyon">
   <div class="wrap split">
     <div class="stick">
+      <p class="mono tagline rv">V/01 · Vizyonumuz</p>
       <h2 class="rv">Üç ilke, tek uçuş planı.</h2>
       <p class="lead rv">Teknolojiyi sadece kullanan değil, tasarlayan bir nesil yetiştirmek istiyoruz. Bu üç ilke her takımın yol haritasını belirler.</p>
     </div>
     <div class="trio">
-      <article class="pan rv"><h3>Kullanan değil, tasarlayan.</h3><p>Her takım bir laboratuvar: fikir çiziliyor, kod yazılıyor, prototip sahada deneniyor.</p></article>
-      <article class="pan rv"><h3>Kendi kendine karar veren sistemler.</h3><p>Havada, tarlada ve atölyede insan müdahalesi olmadan görev yapan teknolojiler geliştiriyoruz.</p></article>
-      <article class="pan rv"><h3>İnsanı koruyan teknoloji.</h3><p>Her üretimde önce güvenlik gelir. Güvenlik birimimiz bu kültürü atölyemizden okulun tamamına yayar.</p></article>
+      <article class="pan rv"><span class="mono lbl">01 · Üretmek</span><h3>Kullanan değil, tasarlayan.</h3><p>Her takım bir laboratuvar: fikir çiziliyor, kod yazılıyor, prototip sahada deneniyor.</p></article>
+      <article class="pan rv"><span class="mono lbl">02 · Otonomi</span><h3>Kendi kendine karar veren sistemler.</h3><p>Havada, tarlada ve atölyede insan müdahalesi olmadan görev yapan teknolojiler geliştiriyoruz.</p></article>
+      <article class="pan rv"><span class="mono lbl">03 · Güvenlik</span><h3>İnsanı koruyan teknoloji.</h3><p>Her üretimde önce güvenlik gelir. Güvenlik birimimiz bu kültürü atölyemizden okulun tamamına yayar.</p></article>
     </div>
   </div>
 </section>
 
 <section class="sec alt" id="takimlar">
   <div class="wrap">
+    <p class="mono tagline rv">V/02 · Takımlar &amp; Projeler</p>
     <h2 class="rv">Üç takım, üç görev.</h2>
     <p class="lead rv">Her takım kendi alanında üretiyor. Etiketler, takımın kullandığı bilim dallarını gösterir.</p>
     <div class="grid">
@@ -106,10 +111,12 @@
           </svg>
         </div>
         <div class="body">
-          <span class="tag">İHA</span>
+          <div class="top"><span class="mono">T/01</span><span class="tag">İHA</span></div>
           <h3>Turan</h3>
           <p class="desc">İnsansız hava araçlarını tasarlıyor ve üretiyoruz. Uçuş kontrolcüsü ve telemetriyle otonom görev yapan araçlar geliştiriyoruz.</p>
-          <ul class="goals"><li>Otonom görev yapan İHA geliştirmek</li><li>Uçuş kontrol ve telemetriyi kendimiz tasarlamak</li><li>Yarışma standartlarında hava aracı üretmek</li></ul>
+          <p class="desc">Her araç önce 3B tasarımda şekillenir, sonra atölyede üretilir ve test uçuşlarında telemetri verisiyle iyileştirilir. Amacımız yalnızca uçan değil, görevini kendi başına tamamlayan sistemler.</p>
+          <p class="meta"><b>Araçlar:</b> uçuş kontrolcüsü · telemetri · 3B tasarım ve baskı · Python</p>
+          <ul class="goals"><li>Otonom görev yapan İHA geliştirmek</li><li>Uçuş kontrol ve telemetriyi kendimiz tasarlamak</li><li>Yarışma standartlarında hava aracı üretmek</li><li>Her uçuştan veri toplayıp tasarımı iyileştirmek</li></ul>
           <div class="disc"><span class="chip">Fizik</span><span class="chip">Matematik</span><span class="chip">Elektronik</span></div>
         </div>
       </article>
@@ -127,10 +134,12 @@
           </svg>
         </div>
         <div class="body">
-          <span class="tag">Akıllı tarım</span>
+          <div class="top"><span class="mono">T/02</span><span class="tag">Akıllı tarım</span></div>
           <h3>Agrotech</h3>
           <p class="desc">Teknolojiyle doğayı buluşturup verimi artıran, sürdürülebilir tarım çözümleri üretiyoruz.</p>
-          <ul class="goals"><li>Verimi artıran akıllı tarım çözümleri üretmek</li><li>Sensör ve veriyle sürdürülebilir üretimi desteklemek</li><li>Teknolojiyi çiftçiye ulaştırmak</li></ul>
+          <p class="desc">Toprak nemi, sıcaklık ve ışık gibi verileri sensörlerle ölçüyor, bu veriyi sulama ve bakım kararlarına dönüştürüyoruz. Sistemler hem tarlada hem serada denenebilecek şekilde tasarlanır.</p>
+          <p class="meta"><b>Araçlar:</b> sensörler · mikrodenetleyici · veri analizi · web paneli</p>
+          <ul class="goals"><li>Verimi artıran akıllı tarım çözümleri üretmek</li><li>Sensör ve veriyle sürdürülebilir üretimi desteklemek</li><li>Teknolojiyi çiftçiye ulaştırmak</li><li>Su ve girdi israfını azaltmak</li></ul>
           <div class="disc"><span class="chip">Biyoloji</span><span class="chip">Kimya</span><span class="chip">Elektronik</span><a class="chip" href="https://demirozflagrotech.com" target="_blank" rel="noopener">demirozflagrotech.com ↗</a></div>
         </div>
       </article>
@@ -153,10 +162,12 @@
           </svg>
         </div>
         <div class="body">
-          <span class="tag">Robotik</span>
+          <div class="top"><span class="mono">T/03</span><span class="tag">Robotik</span></div>
           <h3>FRC Robotics</h3>
           <p class="desc">FIRST Robotics Competition standartlarında robotlar tasarlıyor, kodluyor ve yarışmalara hazırlanıyoruz.</p>
-          <ul class="goals"><li>Yarışma sınıfında robot tasarlamak</li><li>Otonom ve manuel kontrol yazılımı geliştirmek</li><li>Takım çalışmasıyla sezona hazırlanmak</li></ul>
+          <p class="desc">Sezon boyunca mekanik, elektronik ve yazılım alt ekipleri birlikte çalışır. Robot, kısa bir otonom bölümde kendi kararlarını verir; ardından sürücüler kontrolü devralır.</p>
+          <p class="meta"><b>Araçlar:</b> CAD · WPILib · Java · sensör ve kamera sistemleri</p>
+          <ul class="goals"><li>Yarışma sınıfında robot tasarlamak</li><li>Otonom ve manuel kontrol yazılımı geliştirmek</li><li>Takım çalışmasıyla sezona hazırlanmak</li><li>Tasarım sürecini belgelemek ve paylaşmak</li></ul>
           <div class="disc"><span class="chip">Fizik</span><span class="chip">Matematik</span><span class="chip">Mekanik</span></div>
         </div>
       </article>
@@ -170,6 +181,7 @@
   <div class="sec">
     <div class="wrap band">
       <div>
+        <p class="mono tagline rv" style="color:var(--or)">V/03 · Güvenlik</p>
         <span class="tagx rv">Okul güvenlik birimi</span>
         <h2 class="rv">İş sağlığı ve güvenliği (İSG).</h2>
         <p class="lead rv">İSG bir yarışma takımı değil, tüm takımların ortak güvenlik katmanı. Atölye ve laboratuvarlarda riskleri izliyor, tehlikede uyarı veriyoruz.</p>
@@ -187,12 +199,19 @@
       </div>
     </div>
   </div>
+  <div class="wrap"><ol class="flow">
+    <li><b>İzle</b><span>Sensörler atölyedeki sıcaklık, gaz ve ortam verisini sürekli okur.</span></li>
+    <li><b>Algıla</b><span>Normal dışı değerler risk olarak işaretlenir.</span></li>
+    <li><b>Uyar</b><span>Tehlike anında ışık ve ses ile anlık uyarı verilir.</span></li>
+    <li><b>Eğit</b><span>Kayıtlar, güvenlik eğitimlerini ve atölye kurallarını geliştirmekte kullanılır.</span></li>
+  </ol></div>
   <div class="hazard" aria-hidden="true"></div>
 </section>
 
 <section class="sec" id="iletisim">
   <div class="wrap two">
     <div>
+      <p class="mono tagline rv">V/04 · İletişim</p>
       <h2 class="rv">Bizimle çalışmak ister misiniz?</h2>
       <p class="lead rv">Proje önerisi, sponsorluk veya takıma katılım için bize yazın.</p>
       <p class="rv"><a class="mail" href="mailto:info@demirozteknoloji.tr">info@demirozteknoloji.tr</a></p>
@@ -212,7 +231,10 @@
 </section>
 </main>
 
-<footer><p>© 2026 Demiröz Teknoloji · Hacı Şöhret Demiröz Fen Lisesi</p></footer>
+<footer>
+  <p>© 2026 Demiröz Teknoloji · Hacı Şöhret Demiröz Fen Lisesi</p>
+  <p class="mono status"><i></i>Yer bağlantısı aktif · Oturum <span id="ses">00:00:00</span> · Ekran <span id="vp">-</span> · Kaydırma <span id="sc">0</span>px</p>
+</footer>
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s),rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -241,6 +263,47 @@ form.addEventListener('submit',async e=>{
     fs.classList.add('err');fs.textContent='Mesaj gönderilemedi. Lütfen tekrar deneyin veya info@demirozteknoloji.tr adresine yazın.';
   }finally{fb.disabled=false;fb.textContent=old}
 });
+
+/* saat, oturum, kaydırma durumu */
+const t0=Date.now(),p2=n=>String(n).padStart(2,'0');
+setInterval(()=>{$('#clock').textContent=new Date().toLocaleTimeString('tr-TR',{timeZone:'Europe/Istanbul'})+' TSİ';
+  const s=Math.floor((Date.now()-t0)/1000);$('#ses').textContent=`${p2(s/3600|0)}:${p2(s/60%60|0)}:${p2(s%60)}`},1000);
+const upd2=()=>{$('#sc').textContent=Math.round(scrollY);$('#vp').textContent=innerWidth+'×'+innerHeight};
+addEventListener('scroll',upd2,{passive:true});addEventListener('resize',upd2);upd2();
+
+/* imleç ışığı */
+const gl=$('#glow');addEventListener('pointermove',e=>{gl.style.transform=`translate(${e.clientX}px,${e.clientY}px)`},{passive:true});
+
+/* kart: 3B eğim + ışık takibi */
+$$('.card').forEach(c=>{
+  c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
+    if(!rm){c.style.setProperty('--rx',((.5-y/r.height)*6).toFixed(2)+'deg');c.style.setProperty('--ry',((x/r.width-.5)*8).toFixed(2)+'deg')}});
+  c.addEventListener('pointerleave',()=>{c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')});
+});
+
+/* manyetik düğme */
+$$('.btn').forEach(b=>{
+  b.addEventListener('pointermove',e=>{if(rm)return;const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.3}px)`});
+  b.addEventListener('pointerleave',()=>b.style.transform='');
+});
+
+/* telemetri */
+if(!rm){let t=0;setInterval(()=>{t+=.15;$('#alt').textContent=Math.round(120+18*Math.sin(t))},200)}
+
+/* ağ animasyonu */
+(()=>{const cv=$('#net'),cx=cv.getContext('2d');if(rm)return;let w,h,m={x:-999,y:-999},P=[];
+  const rs=()=>{w=cv.width=cv.offsetWidth;h=cv.height=cv.offsetHeight;P=Array.from({length:Math.min(80,w/16|0)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}))};
+  rs();addEventListener('resize',rs);
+  $('#home').addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();m.x=e.clientX-r.left;m.y=e.clientY-r.top});
+  (function f(){cx.clearRect(0,0,w,h);
+    P.forEach((p,i)=>{p.x=(p.x+p.vx+w)%w;p.y=(p.y+p.vy+h)%h;const dm=Math.hypot(p.x-m.x,p.y-m.y);
+      if(dm<140){p.x+=(p.x-m.x)*.01;p.y+=(p.y-m.y)*.01}
+      cx.fillStyle='rgba(61,139,255,.8)';cx.fillRect(p.x,p.y,2,2);
+      for(let j=i+1;j<P.length;j++){const d=Math.hypot(p.x-P[j].x,p.y-P[j].y);
+        if(d<120){cx.strokeStyle=`rgba(61,139,255,${(1-d/120)*(dm<180?.6:.22)})`;cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(P[j].x,P[j].y);cx.stroke()}}});
+    requestAnimationFrame(f)})();
+})();
 </script>
 </body>
 </html>
